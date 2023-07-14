@@ -22,7 +22,6 @@ return require('packer').startup(function(use)
   use("nvim-treesitter/nvim-treesitter-context");
   use("nvim-tree/nvim-tree.lua")
   use("nvim-tree/nvim-web-devicons")
-  use('mbbill/undotree')
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
