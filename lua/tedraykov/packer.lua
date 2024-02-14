@@ -15,6 +15,14 @@ return require('packer').startup(function(use)
 
   use 'folke/trouble.nvim'
   use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
+  use {
+    "kkoomen/vim-doge",
+    run = ":call doge#install()",
+    config = function()
+      vim.g.doge_comment_jump_modes = { "n", "s" }
+    end,
+    disable = false,
+  }
   use('nvim-treesitter/playground')
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
@@ -23,12 +31,6 @@ return require('packer').startup(function(use)
   use("nvim-treesitter/nvim-treesitter-context");
   use("nvim-tree/nvim-tree.lua")
   use("nvim-tree/nvim-web-devicons")
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-    ft = { "markdown" },
-  })
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
@@ -67,14 +69,18 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use 'fatih/vim-go'
-  use 'numToStr/Comment.nvim'
+  use {
+    'numToStr/Comment.nvim',
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  }
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'm4xshen/autoclose.nvim'
   use 'norcalli/nvim-colorizer.lua'
+
   use({
     "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    ft = { "markdown" },
   })
-
-  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install",
-    setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 end)
