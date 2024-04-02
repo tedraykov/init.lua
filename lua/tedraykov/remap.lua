@@ -42,6 +42,8 @@ vim.keymap.set("v", ";", "l")
 vim.keymap.set("v", "l", "k")
 vim.keymap.set("v", "k", "j")
 vim.keymap.set("v", "j", "h")
+vim.api.nvim_set_keymap('n', '$', '^', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '^', '$', {noremap = true, silent = true})
 
 -- Remap windows split navigation keys
 vim.keymap.set("n", "<C-w>;", "<C-w>l")

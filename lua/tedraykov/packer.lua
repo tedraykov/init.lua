@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
     end,
     disable = false,
   }
+  use('windwp/nvim-ts-autotag')
   use('nvim-treesitter/playground')
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
@@ -38,6 +39,8 @@ return require('packer').startup(function(use)
       { 'neovim/nvim-lspconfig' },
       { 'williamboman/mason.nvim' },
       { 'williamboman/mason-lspconfig.nvim' },
+      { 'nvimtools/none-ls.nvim' },
+      { 'jay-babu/mason-null-ls.nvim' },
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },
@@ -69,10 +72,7 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use 'fatih/vim-go'
-  use {
-    'numToStr/Comment.nvim',
-    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-  }
+  use 'numToStr/Comment.nvim'
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'm4xshen/autoclose.nvim'
   use 'norcalli/nvim-colorizer.lua'
