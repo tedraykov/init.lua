@@ -13,10 +13,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -42,11 +42,15 @@ vim.keymap.set("v", ";", "l")
 vim.keymap.set("v", "l", "k")
 vim.keymap.set("v", "k", "j")
 vim.keymap.set("v", "j", "h")
-vim.api.nvim_set_keymap('n', '$', '^', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '^', '$', {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "$", "^", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "^", "$", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "$", "^", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "^", "$", { noremap = true, silent = true })
 
 -- Remap windows split navigation keys
 vim.keymap.set("n", "<C-w>;", "<C-w>l")
 vim.keymap.set("n", "<C-w>l", "<C-w>k")
 vim.keymap.set("n", "<C-w>k", "<C-w>j")
 vim.keymap.set("n", "<C-w>j", "<C-w>h")
+
+vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
