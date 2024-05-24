@@ -2,6 +2,8 @@ return {
   "nvimtools/none-ls.nvim",
   dependencies = {
     "nvimtools/none-ls-extras.nvim",
+    "nvim-lua/plenary.nvim",
+    "ThePrimeagen/refactoring.nvim",
   },
   config = function()
     local null_ls = require("null-ls")
@@ -36,7 +38,6 @@ return {
         end
       end,
       sources = {
-        null_ls.builtins.code_actions.impl,
         null_ls.builtins.code_actions.refactoring,
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.completion.spell,
