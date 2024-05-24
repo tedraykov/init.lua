@@ -12,7 +12,7 @@ return {
 		local lspconfig = require("lspconfig")
 
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		-- used to enable autocompletion (assign to every lsp server config)
+
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
@@ -134,10 +134,10 @@ return {
 		})
 		require("mason-tool-installer").setup({
 			ensure_installed = {
-				"prettierd", -- prettier formatter
-				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"black", -- python formatter
+				"prettierd",
+				"stylua",
+				"isort",
+				"black",
 				"pylint",
 				"eslint_d",
 			},
