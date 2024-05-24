@@ -10,8 +10,12 @@ return {
 			-- default mappings
 			api.config.mappings.default_on_attach(bufnr)
 
+			local function find_file_toggle()
+				api.tree.toggle({ find_file = true }) -- replace with actual arguments
+			end
+
 			-- custom mappings
-			vim.keymap.set("n", "<leader>t", api.tree.toggle)
+			vim.keymap.set("n", "<leader>t", find_file_toggle)
 		end
 
 		-- OR setup with some options
