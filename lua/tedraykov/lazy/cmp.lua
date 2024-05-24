@@ -18,34 +18,48 @@ return {
 	config = function()
 		local cmp = require("cmp")
 
-		local luasnip = require("luasnip")
+		local ls = require("luasnip")
+		ls.setup({
+			keep_roots = true,
+			link_roots = true,
+			link_children = true,
+		})
+
+		vim.keymap.set({ "i" }, "<C-K>", function()
+			ls.expand()
+		end, { silent = true })
+		vim.keymap.set({ "i", "s" }, "<C-L>", function()
+			ls.jump(1)
+		end, { silent = true })
+		vim.keymap.set({ "i", "s" }, "<C-J>", function()
+			ls.jump(-1)
+		end, { silent = true })
 
 		local lspkind = require("lspkind")
 
 		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
-		require("luasnip.loaders.from_vscode").lazy_load()
+		require("luasnip.loaders.from_vscode").load()
 
 		cmp.setup({
+			experimental = { ghost_text = true },
 			completion = {
-				completeopt = "menu,menuone",
+				completeopt = "menu,menuone,noinstert",
 			},
 			snippet = { -- configure how nvim-cmp interacts with snippet engine
 				expand = function(args)
-					luasnip.lsp_expand(args.body)
+					ls.lsp_expand(args.body)
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 				["<C-n>"] = cmp.mapping.select_next_item(), -- next suggestion
-				["<C-b>"] = cmp.mapping.scroll_docs(-4),
-				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<CR>"] = cmp.mapping.confirm({ select = false }),
 			}),
 			-- sources for autocompletion
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp", max_item_count = 20 },
 				{ name = "luasnip" }, -- snippets
 				{ name = "buffer" }, -- text within current buffer
 				{ name = "path" }, -- file system paths

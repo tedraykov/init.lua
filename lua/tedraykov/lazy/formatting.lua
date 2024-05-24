@@ -26,6 +26,27 @@ return {
 				async = false,
 				timeout_ms = 1000,
 			},
+			formatters = {
+				prettierd = {
+					-- cwd means "config working directory"
+					require_cwd = true,
+
+					cwd = require("conform.util").root_file({
+						".prettierrc",
+						".prettierrc.json",
+						".prettierrc.yml",
+						".prettierrc.yaml",
+						".prettierrc.json5",
+						".prettierrc.js",
+						".prettierrc.cjs",
+						".prettierrc.mjs",
+						".prettierrc.toml",
+						"prettier.config.js",
+						"prettier.config.cjs",
+						"prettier.config.mjs",
+					}),
+				},
+			},
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>f", function()
