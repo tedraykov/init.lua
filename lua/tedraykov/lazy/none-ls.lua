@@ -24,6 +24,15 @@ return {
       "prettier.config.mjs",
     }
 
+    local eslint_config_filenames = {
+      ".eslintrc",
+      ".eslintrc.js",
+      ".eslintrc.cjs",
+      ".eslintrc.yaml",
+      ".eslintrc.yml",
+      ".eslintrc.json",
+    }
+
     null_ls.setup({
       on_attach = function(client, bufnr)
         if client.supports_method("textDocument/formatting") then
@@ -38,18 +47,37 @@ return {
         end
       end,
       sources = {
-        null_ls.builtins.code_actions.refactoring,
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.completion.spell,
-        require("none-ls.diagnostics.eslint_d"),
-        require("none-ls.code_actions.eslint_d"),
-        require("none-ls.formatting.eslint_d"),
+        -- Python
+        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.formatting.isort,
+        null_ls.builtins.formatting.black,
+        -- JavaScript
+        require("none-ls.diagnostics.eslint_d").with({
+          condition = function(utils)
+            return utils.root_has_file(eslint_config_filenames)
+          end,
+        }),
+        require("none-ls.code_actions.eslint_d").with({
+          condition = function(utils)
+            return utils.root_has_file(eslint_config_filenames)
+          end,
+        }),
+        require("none-ls.formatting.eslint_d").with({
+          condition = function(utils)
+            return utils.root_has_file(eslint_config_filenames)
+          end,
+        }),
         null_ls.builtins.formatting.prettierd.with({
           condition = function(utils)
             return utils.root_has_file(prettier_config_filenames)
           end,
         }),
+        -- JSON
         require("none-ls.formatting.jq"),
+        -- General
+        null_ls.builtins.code_actions.refactoring,
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.completion.spell,
       },
     })
   end,

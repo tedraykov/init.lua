@@ -54,3 +54,12 @@ vim.keymap.set("n", "<C-w>k", "<C-w>j")
 vim.keymap.set("n", "<C-w>j", "<C-w>h")
 
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<CR>")
+
+function OpenInFinder()
+  local file_path = vim.fn.expand("%:p")
+  os.execute("open -R " .. file_path)
+end
+
+vim.api.nvim_create_user_command("OpenFinder", OpenInFinder, {})
+
+vim.keymap.set("n", "<leader>of", ":OpenFinder<CR>")
