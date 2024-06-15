@@ -59,7 +59,7 @@ return {
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "nvim_lsp", max_item_count = 20 },
+        { name = "nvim_lsp", max_item_count = 8, keyword_length = 2 },
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
         { name = "path" }, -- file system paths
@@ -67,10 +67,17 @@ return {
 
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
-        format = lspkind.cmp_format({
-          maxwidth = 50,
-          ellipsis_char = "...",
-        }),
+        format = function(entry, vim_item)
+          -- Set up lspkind to include source name
+          vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
+          vim_item.menu = ({
+            nvim_lsp = "[LSP]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+            luasnip = "[Snippet]",
+          })[entry.source.name]
+          return vim_item
+        end,
       },
     })
   end,
