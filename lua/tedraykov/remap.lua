@@ -18,6 +18,9 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
+-- paste the system clipboard when pressing <leader>xp
+vim.keymap.set("n", "<leader>xp", '"+p')
+
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
